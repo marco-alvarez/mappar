@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#ff1e1e1e</color>
+    <color name="white">#ffffffff</color>
+    <color name="trans_white">#50ffffff</color>
+    <color name="red">#ff8b141e</color>
+    <color name="blue">#ff33b5e5</color>
+    <color name="violet">#ff64015e</color>
+    <color name="grey">#ffe5e5e5</color>
+    <color name="bold_grey">#ffd6d6d6</color>
+    <color name="green">#ffd8f97e</color>
+    <color name="distance_green">#ff5bcc00</color>
+    <color name="distance_cyan">#ff60d4d4</color>
+    <color name="light_grey">#ff525255</color>
+    <color name="light_grey1">#ffeef0f1</color>
+    <color name="normal_tab1">#ff313133</color>
+    <color name="normal_tab2">#ff67696c</color>
+    <color name="cyan">#ff008eac</color>
+    <color name="yellow">#ffb18f06</color>
+    <color name="orange_hey1">#ed8b00</color>
+    
+
+</resources>

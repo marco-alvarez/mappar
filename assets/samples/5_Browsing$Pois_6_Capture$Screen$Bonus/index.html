@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+    
+    <!--  basic meta information -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="application/json; charset=utf-8">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes" name="viewport">
+    
+    <title>Hey</title>
+
+    <script src="architect://architect.js"></script>
+
+    <!-- positioning of poi-radar -->
+    <link rel="stylesheet" href="css/poi-radar.css" />
+
+    <!-- css style for mobile devices - PORTRAIT -->
+    <link rel="stylesheet" media="(max-width: 600px) and (orientation: portrait)" href="css/style-mobile-portrait.css" />
+
+    <!-- css style for mobile devices - LANDSCAPE-->
+    <link rel="stylesheet" media="(max-width: 600px) and (orientation: landscape)" href="css/style-mobile-landscape.css" />
+
+    <!-- css style for tablets -->
+    <link rel="stylesheet" media="(min-width: 600px)" href="css/style-tablet.css" />
+
+    <!-- jquery mobile CSS -->
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.3.2.min.css" />
+    <!-- required to set background transparent & enable "click through" -->
+    <link rel="stylesheet" href="jquery/jquery-mobile-transparent-ui-overlay.css" />
+
+    <!-- jquery JS files -->
+    <script type="text/javascript" src="jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.mobile-1.3.2.min.js"></script>
+
+    <!-- marker representation-->
+    <script src="js/marker.js"></script>
+
+    <!-- rally representation-->
+    <script type="text/javascript" src="js/rally.js"></script>
+
+    <!-- gifs representation-->
+    <script type="text/javascript" src="js/gif.js"></script>
+
+    <!-- World logic - markers -->
+    <script type="text/javascript" src="js/captureScreen.js"></script> 
+
+
+    <!-- radar component -->
+    <script type="text/javascript" src="js/radar.js"></script>
+
+    <script type="text/javascript" src="js/clustering.js"></script>
+    
+</head>
+    
+    <body>
+     <div data-role="page" id="page1" style="background: none;" >
+            
+            <!-- MAIN PAGE CONTENT -->
+
+            <!-- header of UI holding feature buttons -->
+            <!-- <div id ="header-status" data-role="header" data-position="fixed" data-theme="c">
+                <a href="javascript: World.showRange();" data-icon="gear" data-inline="true" data-mini="true">Range</a>
+                <a href="javascript: World.captureScreen()" data-icon="refresh" >Snapshot</a>
+                <h1></h1>
+            </div> -->
+
+            <!-- the radar div - Wikitude SDK radar will be drawn into this div -->
+            <div class="radarContainer_left" id="radarContainer"></div>
+
+            <!-- SECTION - info container -->
+                <div class="container">
+                    <a href="javascript: World.onMarkerDeselectedFirst();"><img class="closeButton" src="assets/close.png"></a>
+                    
+                    <div class="content-left">
+
+                        <!-- image -->
+                        <img class="theImage" id="poi-detail-image" src="loading.gif"/>
+                   
+                    </div>
+
+                    <div class="content-right">
+
+                        <!-- title -->
+                        <h4 id="poi-detail-title" style="margin:0px; text-transform: uppercase; text-align:center;">SOMETHING</h4>
+
+                        <!-- description -->
+                        <div class="myDescription">
+                            <h5 id="poi-detail-description" style="margin:0px;">Improve your client's experience on their visits with information about venues around them through video, animations, pictures and contact information.
+
+Show your audience what's around them and benefits they get in those places; at a restaurant, mall, convention, music festival, zoo, hotel, museum, historical towns, tourist attraction…
+
+Manage content in your virtual channel (ID) in an easy and intuitive way without programing or design knowledge, just bring the content you already have, video, web page, Facebook profile, Twitter account, audio files, location and contact information and see how your content is updated in our mobile application.
+                                
+                            </h5>
+                        </div>
+
+                        <!-- icons -->
+
+                        <div class="myIcons">
+                            
+                            <!-- Call to Action MAP-->
+                            <a id="poi-detail-map" href="">
+                                <img class="icon" src="assets/map.png" alt="map" width="40px" height="auto">
+                            </a>
+
+                            <!-- Call to Action FAV-->
+                            <a id="poi-detail-fav" href="">
+                                <img class="icon" src="assets/fav.png" alt="map" width="40px" height="auto">
+                            </a>
+
+                            <!-- Call to Action HEY-->
+                            <a id="poi-detail-hey" href="">
+                                <img class="icon" src="assets/hey.png" alt="map" width="40px" height="auto">
+                            </a>
+
+                            <!-- Call to Action AUDIO-->
+                            <!-- <a id="poi-detail-audio" href="">
+                                <img class="icon" id="audioIcon" src="assets/audio.png" alt="audio" width="40px" height="auto">
+                            </a> -->
+
+                            <!-- Call to Action VIDEO-->
+                            <!-- <a id="poi-detail-video" href="">
+                                <img class="icon" id="videoIcon" src="assets/video.png" alt="video" width="40px" height="auto">
+                            </a> -->
+
+                             <!-- Call to Action URL-->
+                            <a id="poi-detail-url" href="">
+                                <img class="icon" src="assets/url.png" alt="url" width="40px" height="auto">
+                            </a>
+
+                            <!-- Call to Action FACEBBOK-->
+                           <!--  <a id="poi-detail-facebook" href="">
+                                <img class="icon" id="fbIcon" src="assets/facebook.png" alt="facebook" width="40px" height="auto">
+                            </a> -->
+
+                             <!-- Call to Action TWITTER-->
+                            <!-- <a id="poi-detail-twitter" href="">
+                                <img class="icon" id="twIcon" src="assets/twitter.png" alt="twitter" width="40px" height="auto">
+                            </a> -->
+
+                        </div>
+
+                        <!-- END icons -->
+
+                        <div class="myMap"> 
+
+                            <a id="poi-detail-map-img" href="">
+                                <img id="poi-detail-map-preview" src="http://maps.googleapis.com/maps/api/staticmap?center=54.973832,-1.613164&zoom=16&size=200x100&markers=icon:http://illut.io/webapps/apps/geodisplay/public/img/marker.png%7C54.973832,-1.613164&key=AIzaSyBoyBBdG47Q_a5JXROveUKPb5V2-nktZ20" > 
+                            </a>
+
+                        </div>
+
+                        <!-- distance -->
+                        <h5 style="text-align:right;">Distancia: <a id="poi-detail-distance">222 m</a></h5>
+
+
+                    </div>
+
+
+                   <div class="background"></div>
+                </div>
+
+    
+            <!-- share button-->
+            <div class="share" id="shareButton"><img src="assets/share.png" style="margin:5px;" width="35px" height="auto"></div>
+
+            <!-- Info -->
+            <div class="alert" id="status-message">Determinando tu ubicación...</div>
+
+
+
+
+
+
+            <!-- PANELS, ONLY VISIBLE ON DEMAND -->
+
+            <!-- panel containing POI detail information -->
+            <!-- <div data-role="panel" id="panel-poidetail" data-position="right" data-display="overlay" style="background-color:#F0F0F0;" data-theme="c">
+
+             -->    <!-- header with "close" button -->
+                <!-- <div data-role="header" data-theme="c">
+                    <h1>Details</h1>
+                    <a href="#header" data-rel="close">Close</a>
+                </div> -->
+
+                <!-- content of POI detail page, you may also add thumbnails etc. here if you like -->
+                 <!-- <div data-role="content"> -->
+
+                    <!-- title -->
+                    <!-- <h3 id="poi-detail-title"></h3> -->
+
+                    <!-- description -->
+                    <!-- <h4 id="poi-detail-description"></h4> -->
+
+                    <!-- distance -->
+                   <!--  <h4>Distance: <a id="poi-detail-distance"></a></h4> -->
+
+                    <!-- more button-->
+                    <!-- <a href="javascript: World.onPoiDetailMoreButtonClicked();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">More</a>
+                </div>
+            </div> -->
+
+
+
+            <!-- range panel -->
+            <div data-role="panel" id="panel-distance" data-position="left" data-display="overlay" style="background-color:#F0F0F0;" data-theme="c">
+
+                    <!-- header with close button -->
+                    <div data-role="header" data-theme="c">
+                        <h1>Rango</h1>
+                        <a href="#header" data-rel="close">Cerrar</a>
+                    </div>
+
+                    <!-- distance information, calculated/updated in code  -->
+                    <div data-role="content">
+
+                        <!-- Range in m/km-->
+                        <h4> Rango: <a id="panel-distance-value"></a></h4>
+
+                        <!-- Amount of visible places -->
+                        <h4> Visibles: <a id="panel-distance-places"></a></h4>
+
+                        <!-- default slider -->
+                        <input id="panel-distance-range" type="range" data-highlight="false" name="rangeSlider" min="0" max="100" value="100" data-show-value="false" step="5" data-popup-enabled="false">
+                    </div>
+            </div>
+
+        
+
+        </div>
+
+        <script type="text/javascript">
+
+            $('div.range').click(function(){
+                World.showRange();
+            });
+
+            $('div.share').click(function(){
+                World.captureScreen();
+            });
+
+        </script>
+
+    </body>
+    
+</html>

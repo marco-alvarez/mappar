@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.heyapp.hey"
+    android:installLocation="auto"
+    android:versionCode="4000"
+    android:versionName="4.0.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <permission
+    android:name="com.illutio.hey.permission.C2D_MESSAGE"
+    android:protectionLevel="signature" />
+
+	<uses-permission android:name="com.illutio.hey.permission.C2D_MESSAGE" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <!-- Tell the system this app requires OpenGL ES 2.0. -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <!-- rear facing cam -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <!-- users location -->
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="true" />
+
+    <!-- accelerometer -->
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+
+    <!-- compass -->
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
+        android:required="true" />
+
+    <!-- do not support small resolution screens -->
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="19" />
+
+    <!--
+    set android:debuggable="false" or remove android:debuggable="true" to disable debugging for Android 4.4+
+    In case of a compile-error you have to update "Project - Properties - Android Lint Preferences" - Security - HardcodedDebugMode (set "Severity" to "Warning")
+    -->
+    <application
+        android:name=".SampleApplication"
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        <activity
+            android:name="com.wikitude.samples.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+         <activity
+            android:name=".SampleProfileActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:launchMode="singleTop">
+        </activity>
+        
+        <activity
+            android:name="com.parse.ui.ParseLoginActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_ENABLED"
+                android:value="true"/>
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_EMAIL_AS_USERNAME"
+                android:value="true"/>
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.FACEBOOK_LOGIN_ENABLED"
+                android:value="true"/>
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.TWITTER_LOGIN_ENABLED"
+                android:value="true"/>
+        </activity>
+        
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"/>
+        
+        <activity
+            android:name="com.wikitude.samples.MainActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- poi detail screen -->
+        <activity android:name="com.wikitude.samples.SamplePoiDetailActivity" />
+
+        <!-- cam activities -->
+        <activity
+            android:name="com.wikitude.samples.SampleCamActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.wikitude.samples.SampleCamCaptureScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.wikitude.samples.SampleCamHandlePoiDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <!-- in case mediaplayer is used -->
+        <activity
+            android:name="com.wikitude.tools.activities.MediaPlayerActivity"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        
+        <service
+        	android:name="com.esri.android.geotrigger.GeotriggerService"
+        	android:exported="false" />
+        <service
+          	android:name="com.wikitude.samples.GeoNotificacionService"
+           	android:enabled="true" />
+	    <receiver
+	        android:name="com.esri.android.geotrigger.MessageReceiver"
+	        android:permission="com.google.android.c2dm.permission.SEND">
+	        <intent-filter>
+	            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+	            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+	            <category android:name="com.illutio.hey" />
+	        </intent-filter>
+	        <intent-filter>
+	            <action android:name="android.intent.action.PACKAGE_REPLACED" />
+	            <data android:path="com.illutio.hey"
+	                  android:scheme="package" />
+	        </intent-filter>
+	    </receiver>
+	    <receiver
+	       android:name="com.esri.android.geotrigger.GeotriggerBroadcastReceiver"
+	       android:enabled="true"
+	       android:exported="false">
+	       <intent-filter>
+	           <action android:name="com.esri.android.geotrigger.action.READY" />
+	       </intent-filter>
+	   </receiver>
+        
+        <meta-data android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Hey!</string>
+    <string name="compass_accuracy_low">Por favor, ajusta tu brújua moviendo tu dispositivo en forma de 8</string>
+    <string name="location_fetching">Tratando de determinar tu ubicación</string>
+    <string name="device_unsupported">Dispositivo no soportado</string>
+    <string name="videosrawables_fallback">VideoDrawables are rendered fullscreen on this device</string>
+    <string name="poi_detail_title">Place Details</string>
+    <string name="poi_name">Hey!</string>
+    <string name="poi_description">Instrucciones</string>
+    <string name="poi_id">Usuario</string>
+    <string name="title_activity_sample1_poi_detail">Sample 5.1 POI Detail</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="play_services_dialog_cancel_toast">Google Play Services ayudan a optimizar la duración de tu batería</string>
+    <string name="gps_provider_disabled">La localización por GPS no está disponible</string>
+    <string name="network_provider_disabled">La localización por Red no está disponible</string>
+    <string name="both_gps_and_network_disabled">La localización por GPS y/o Red no está disponible</string>
+    <string name="enable_background_scanning">Por favor, habilita las acciones en background</string>
+    <string name="enable_wifi">Por favor, activa la señal wifi para mejores resultados</string>
+    <string name="settings">Ajustes</string>
+    <string name="cancel">Cancelar</string>
+    <string name="logout">Cerrar sesión</string>
+    
+    <!-- Please put your application's app ID and keys here -->
+    <string name="parse_app_id">XUzZ2jXr1QVpTCnSuRFS9WhykrINPIprENUHRnDf</string>
+    <string name="parse_client_key">Ps7Tf8TzmsfOaQ7zqcqUWcUDjWuqNmXl2xb0sqQ6</string>
+    <string name="facebook_app_id">1486508458292796</string>
+    <string name="twitter_consumer_key">fP2Tzu7MiYJgnHdhKL6DGDfbi</string>
+    <string name="twitter_consumer_secret">8CrtNpwLqYSymonR7DcrMySEZeDVE9tSaDtbLfnkO4TymkR2bG</string>
+
+    <string name="profile_logo_content_description">Logo</string>
+    <string name="profile_title_logged_in">Iniciaste sesión como</string>
+    <string name="profile_logout_button_label">Cerrar sesión</string>
+    <string name="profile_title_logged_out">Por favor, inicia sesión para disfrutar todos los beneficios de Hey!</string>
+    <string name="profile_login_button_label">Iniciar sesión</string>
+
+</resources>
