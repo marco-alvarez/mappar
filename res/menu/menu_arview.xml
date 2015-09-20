@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sailar="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/button_take_screen"
+        android:icon="@drawable/ic_menu_screen"
+        android:title="@string/screenshot"
+        sailar:showAsAction="always"/>
+    <item
+        android:id="@+id/button_open_rangebox"
+        android:icon="@drawable/ic_menu_range"
+        android:title="@string/range"
+        sailar:showAsAction="always"/>
+    <item
+        android:id="@+id/button_reload_content"
+        android:icon="@drawable/ic_menu_unhide"
+        android:title="@string/unhide"
+        sailar:showAsAction="always"/>
+
+</menu>

@@ -1,0 +1,29 @@
+.ui-panel-inner { padding: 0 !important } 
+
+.alert{
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        max-width: 150px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: lighter;
+        font-size: medium;
+        padding: 5px;
+        color: white;
+        background-color: #DE0034;
+        opacity: 0.8;
+   }
+
+div.myIcons{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 150px;
+    display: none;
+
+}
+
+a {
+    text-decoration: none
+}

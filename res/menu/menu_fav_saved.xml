@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sailar="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/button_switch_view"
+        android:icon="@drawable/ic_view_list"
+        android:title="Switch View"
+        sailar:showAsAction="always"/>
+
+</menu>
