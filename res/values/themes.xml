@@ -4,17 +4,45 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/themes.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Black.NoTitleBar">
+    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarTheme">@style/MyApp.ActionBarTheme</item>
+        <item name="colorControlNormal">@android:color/white</item>
+
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/themes.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextApearance</item>
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="MyApp.ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+
+        <!-- THIS is where you can color the arrow! -->
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="myCustomMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- ToolBar -->
+    <style name="ToolBarStyle" parent="AppBaseTheme">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
     </style>
 
 </resources>

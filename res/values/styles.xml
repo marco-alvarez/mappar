@@ -4,27 +4,38 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
+    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-		<item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
-		<item name="android:dropDownItemStyle">@style/Widget.DropDownItemLight</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewLight</item>
+        <item name="android:dropDownItemStyle">@style/Widget.DropDownItemLight</item>
+        <item name="windowActionBar">false</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
-    
-    
+
     <style name="AutoCompleteTextViewLight" parent="@android:style/Widget.AutoCompleteTextView">
-		<item name="android:textColor">@android:color/primary_text_light</item>
-		</style>
-	<style name="Widget.DropDownItemLight" parent="@android:style/Widget.DropDownItem">
-		<item name="android:textColor">@android:color/primary_text_light</item>
-	</style>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+
+    <style name="Widget.DropDownItemLight" parent="@android:style/Widget.DropDownItem">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
 
 </resources>

@@ -13,11 +13,34 @@ public interface ArchitectViewHolderInterface {
 	public static final int CULLING_DISTANCE_DEFAULT_METERS = 50 * 1000;
 	
 	/**
-	 * path to the architect-file (AR-Experience HTML) to launch
+	 * Category Id
 	 * @return
 	 */
-	public String getARchitectWorldPath();
+	public String getCategoryId();
 	
+	/**
+	 * Category Name
+	 * @return
+	 */
+	public String getCategoryName();
+	
+	/**
+	 * Category Type
+	 * @return
+	 */
+	public String getCategoryType();
+	
+	/**
+	 * Category Type
+	 * @return
+	 */
+	public String getDestLat();
+	
+	/**
+	 * Category Type
+	 * @return
+	 */
+	public String getDestLong();
 	/**
 	 * url listener fired once e.g. 'document.location = "architectsdk://foo?bar=123"' is called in JS
 	 * @return

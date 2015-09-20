@@ -1,59 +1,32 @@
 package com.wikitude.samples;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.pm.ApplicationInfo;
 import android.location.Location;
 import android.location.LocationListener;
 import android.media.AudioManager;
 import android.opengl.GLES20;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.heyapp.hey.R;
 import com.wikitude.architect.ArchitectView;
-import com.wikitude.architect.ArchitectView.ArchitectConfig;
 import com.wikitude.architect.ArchitectView.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
+import com.wikitude.architect.StartupConfiguration;
+import com.wikitude.architect.StartupConfiguration.CameraPosition;
 
 /**
  * Abstract activity which handles live-cycle events.
  * Feel free to extend from this activity when setting up your own AR-Activity 
  *
  */
-public abstract class AbstractArchitectCamActivity extends Activity implements ArchitectViewHolderInterface{
-	
-	// The following line should be changed to include the correct property id.
-    private static final String PROPERTY_ID = "UA-47031425-12";
-
-    public static int GENERAL_TRACKER = 0;
-	
-	public enum TrackerName {
-	    APP_TRACKER, // Tracker used only in this app.
-	    GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
-	    ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
-	  }
-
-	  HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
-	  
-	  synchronized Tracker getTracker(TrackerName trackerId) {
-		    if (!mTrackers.containsKey(trackerId)) {
-
-		      GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-		      Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(PROPERTY_ID)
-		          : (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(R.xml.global_tracker)
-		              : analytics.newTracker(R.xml.ecommerce_tracker);
-		      mTrackers.put(trackerId, t);
-
-		    }
-		    return mTrackers.get(trackerId);
-		  }
+public abstract class AbstractArchitectCamActivity extends ActionBarActivity implements ArchitectViewHolderInterface{
 
 	/**
 	 * holds the Wikitude SDK AR-View, this is where camera, markers, compass, 3D models etc. are rendered
@@ -85,6 +58,8 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 	 */
 	protected ArchitectUrlListener 			urlListener;
 	
+	protected boolean isLoading = false;
+
 	/** Called when the activity is first created. */
 	@SuppressLint("NewApi")
 	@Override
@@ -97,18 +72,26 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 		/* set samples content view */
 		this.setContentView( this.getContentViewId() );
 		
+		//TODO lo quite jiju
+		//this.setTitle( this.getActivityTitle() );
+		
 		/*  
 		 *	this enables remote debugging of a WebView on Android 4.4+ when debugging = true in AndroidManifest.xml
 		 *	If you get a compile time error here, ensure to have SDK 19+ used in your ADT/Eclipse.
 		 *	You may even delete this block in case you don't need remote debugging or don't have an Android 4.4+ device in place.
 		 *	Details: https://developers.google.com/chrome-developer-tools/docs/remote-debugging
 		 */
-		
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+		    if ( 0 != ( getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE ) ) {
+		        WebView.setWebContentsDebuggingEnabled(true);
+		    }
+		}
+
 		/* set AR-view for life-cycle notifications etc. */
 		this.architectView = (ArchitectView)this.findViewById( this.getArchitectViewId()  );
 
 		/* pass SDK key if you have one, this one is only valid for this package identifier and must not be used somewhere else */
-		final ArchitectConfig config = new ArchitectConfig( this.getWikitudeSDKLicenseKey() );
+		final StartupConfiguration config = new StartupConfiguration( this.getWikitudeSDKLicenseKey(), this.getFeatures(), this.getCameraPosition() );
 
 		try {
 			/* first mandatory life-cycle notification */
@@ -130,85 +113,96 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 			this.architectView.registerUrlListener( this.getUrlListener() );
 		}
 		
-		// listener passed over to locationProvider, any location update is handled here
-		this.locationListener = new LocationListener() {
-
-			@Override
-			public void onStatusChanged( String provider, int status, Bundle extras ) {
-			}
-
-			@Override
-			public void onProviderEnabled( String provider ) {
-			}
-
-			@Override
-			public void onProviderDisabled( String provider ) {
-			}
-
-			@Override
-			public void onLocationChanged( final Location location ) {
-				// forward location updates fired by LocationProvider to architectView, you can set lat/lon from any location-strategy
-				if (location!=null) {
-				// sore last location as member, in case it is needed somewhere (in e.g. your adjusted project)
-				AbstractArchitectCamActivity.this.lastKnownLocaton = location;
-				if ( AbstractArchitectCamActivity.this.architectView != null ) {
-					// check if location has altitude at certain accuracy level & call right architect method (the one with altitude information)
-					if ( location.hasAltitude() && location.hasAccuracy() && location.getAccuracy()<7) {
-						AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.getAltitude(), location.getAccuracy() );
-					} else {
-						AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.hasAccuracy() ? location.getAccuracy() : 1000 );
+		if (hasGeo()) {
+			// listener passed over to locationProvider, any location update is handled here
+			this.locationListener = new LocationListener() {
+	
+				@Override
+				public void onStatusChanged( String provider, int status, Bundle extras ) {
+				}
+	
+				@Override
+				public void onProviderEnabled( String provider ) {
+				}
+	
+				@Override
+				public void onProviderDisabled( String provider ) {
+				}
+	
+				@Override
+				public void onLocationChanged( final Location location ) {
+					// forward location updates fired by LocationProvider to architectView, you can set lat/lon from any location-strategy
+					if (location!=null) {
+					// sore last location as member, in case it is needed somewhere (in e.g. your adjusted project)
+						AbstractArchitectCamActivity.this.lastKnownLocaton = location;
+						if ( AbstractArchitectCamActivity.this.architectView != null ) {
+							// check if location has altitude at certain accuracy level & call right architect method (the one with altitude information)
+							if ( location.hasAltitude() && location.hasAccuracy() && location.getAccuracy()<7) {
+								AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.getAltitude(), location.getAccuracy() );
+							} else {
+								AbstractArchitectCamActivity.this.architectView.setLocation( location.getLatitude(), location.getLongitude(), location.hasAccuracy() ? location.getAccuracy() : 1000 );
+							}
+						}
 					}
 				}
-				}
-			}
-		};
+			};
 
-		// locationProvider used to fetch user position
-		this.locationProvider = getLocationProvider( this.locationListener );
-		getActionBar().hide();
-		
-		//Analytics
-		 // Get tracker.
-        Tracker t = ((AbstractArchitectCamActivity) this).getTracker(
-            TrackerName.APP_TRACKER);
-        // Build and send an Event.
-        t.send(new HitBuilders.EventBuilder()
-            .setCategory("categoria")
-            .setAction( this.getARchitectWorldPath() )
-            .setLabel("Usuario abrio categoria")
-            .build());
-		
+			// locationProvider used to fetch user position
+			this.locationProvider = getLocationProvider( this.locationListener );
+		} else {
+			this.locationProvider = null;
+			this.locationListener = null;
+		}
 	}
+
+	protected abstract CameraPosition getCameraPosition();
+
+	private int getFeatures() {
+		int features = (hasGeo() ? StartupConfiguration.Features.Geo : 0) | (hasIR() ? StartupConfiguration.Features.Tracking2D : 0);
+		return features;
+	}
+
+	protected abstract boolean hasGeo();
+	protected abstract boolean hasIR();
 
 	@Override
 	protected void onPostCreate( final Bundle savedInstanceState ) {
 		super.onPostCreate( savedInstanceState );
-		
+
 		if ( this.architectView != null ) {
-			
+
 			// call mandatory live-cycle method of architectView
 			this.architectView.onPostCreate();
-			
 			try {
 				
-				String extra1 = this.getARchitectWorldPath();
-				String idWorldFinal = "World.didReceivedNewId('" + extra1 + "')";
-					
-				//pass parameter
+				String world = this.getCategoryType();
+
+				String idWorldFinal;
+				String extra1 = this.getCategoryId();
+				
+				if(world.equals("places") || world.equals("events") || world.equals("places_around") || world.equals("events_around")){
+					idWorldFinal = "World.didReceivedNewId('" + extra1 + "')";
+				} else{
+					String extra2 = this.getDestLat();
+					String extra3 = this.getDestLong();
+					idWorldFinal = "World.didReceivedNewId('" + extra1 + "','" + extra2 + "','" + extra3 + "')";
+				}
+
 				this.architectView.callJavascript(idWorldFinal);
-				// load content via url in architectView, ensure '<script src="architect://architect.js"></script>' is part of this HTML file, have a look at wikitude.com's developer section for API references
-				this.architectView.load( "samples/5_Browsing$Pois_6_Capture$Screen$Bonus/index.html" ); //TODO AR WORLD PATH
+				this.architectView.load("world/index_" + world + ".html" );
+
 
 				if (this.getInitialCullingDistanceMeters() != ArchitectViewHolderInterface.CULLING_DISTANCE_DEFAULT_METERS) {
 					// set the culling distance - meaning: the maximum distance to render geo-content
 					this.architectView.setCullingDistance( this.getInitialCullingDistanceMeters() );
 				}
-				
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		}
 	}
+
 
 	@Override
 	protected void onResume() {
@@ -273,13 +267,41 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 		}
 	}
 
-	
 	/**
-	 * path to the architect-file (AR-Experience HTML) to launch
+	 * Category Id
 	 * @return
 	 */
 	@Override
-	public abstract String getARchitectWorldPath();
+	public abstract String getCategoryId();
+
+	/**
+	 * Category Name
+	 * @return
+	 */
+	@Override
+	public abstract String getCategoryName();
+
+	/**
+	 * Category Type
+	 * @return
+	 */
+	@Override
+	public abstract String getCategoryType();
+
+	/**
+	 * Destination Latitude
+	 * @return
+	 */
+	@Override
+	public abstract String getDestLat();
+
+	/**
+	 * Destination Longitude
+	 * @return
+	 */
+	@Override
+	public abstract String getDestLong();
+
 	
 	/**
 	 * url listener fired once e.g. 'document.location = "architectsdk://foo?bar=123"' is called in JS
@@ -327,5 +349,6 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 		String extensions = GLES20.glGetString( GLES20.GL_EXTENSIONS );
 		return extensions != null && extensions.contains( "GL_OES_EGL_image_external" ) && android.os.Build.VERSION.SDK_INT >= 14 ;
 	}
+	
 
 }

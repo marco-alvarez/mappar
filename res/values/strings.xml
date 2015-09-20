@@ -1,39 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Hey!</string>
-    <string name="compass_accuracy_low">Por favor, ajusta tu brújua moviendo tu dispositivo en forma de 8</string>
+    <string name="app_name">MappAR</string>
+    <string name="compass_accuracy_low">Por favor, ajusta tu brújula moviendo tu dispositivo en forma de 8</string>
     <string name="location_fetching">Tratando de determinar tu ubicación</string>
     <string name="device_unsupported">Dispositivo no soportado</string>
     <string name="videosrawables_fallback">VideoDrawables are rendered fullscreen on this device</string>
     <string name="poi_detail_title">Place Details</string>
-    <string name="poi_name">Hey!</string>
-    <string name="poi_description">Instrucciones</string>
-    <string name="poi_id">Usuario</string>
-    <string name="title_activity_sample1_poi_detail">Sample 5.1 POI Detail</string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_splash">MappAR</string>
+    <string name="action_settings">Settings</string>
     <string name="play_services_dialog_cancel_toast">Google Play Services ayudan a optimizar la duración de tu batería</string>
     <string name="gps_provider_disabled">La localización por GPS no está disponible</string>
     <string name="network_provider_disabled">La localización por Red no está disponible</string>
     <string name="both_gps_and_network_disabled">La localización por GPS y/o Red no está disponible</string>
     <string name="enable_background_scanning">Por favor, habilita las acciones en background</string>
     <string name="enable_wifi">Por favor, activa la señal wifi para mejores resultados</string>
-    <string name="settings">Ajustes</string>
+    <string name="settings">Settings</string>
     <string name="cancel">Cancelar</string>
-    <string name="logout">Cerrar sesión</string>
-    
+    <string name="logout">Log Out</string>
+
     <!-- Please put your application's app ID and keys here -->
-    <string name="parse_app_id">XUzZ2jXr1QVpTCnSuRFS9WhykrINPIprENUHRnDf</string>
-    <string name="parse_client_key">Ps7Tf8TzmsfOaQ7zqcqUWcUDjWuqNmXl2xb0sqQ6</string>
-    <string name="facebook_app_id">1486508458292796</string>
-    <string name="twitter_consumer_key">fP2Tzu7MiYJgnHdhKL6DGDfbi</string>
-    <string name="twitter_consumer_secret">8CrtNpwLqYSymonR7DcrMySEZeDVE9tSaDtbLfnkO4TymkR2bG</string>
+    <string name="parse_app_id">aNl2F0wJS921g5tNBK3Dfd0fEApCqtQEGp6OeBMv</string>
+    <string name="parse_client_key">uXr6dQTMi6ndzr6tgjhQgqTpjWCjgvbcuURLs9wB</string>
 
-    <string name="profile_logo_content_description">Logo</string>
-    <string name="profile_title_logged_in">Iniciaste sesión como</string>
-    <string name="profile_logout_button_label">Cerrar sesión</string>
-    <string name="profile_title_logged_out">Por favor, inicia sesión para disfrutar todos los beneficios de Hey!</string>
-    <string name="profile_login_button_label">Iniciar sesión</string>
-
-</resources>
+    <!-- GENERAL -->
+    <string name="img_description">ImageDescription</string>
+    <string name="menu_settings">Settings</string>
+    <string name="loading">Loading&#8230;</string>
+	<string name="please_check_your_network_connection_and_try_again">Please check your network connection and try again.</string>
+    <string name="location_not_available">Location Access Disabled</string>
+    <string name="please_enable_gps_and_network_positioning_in_your_settings">Please enable GPS and Network positioning for SailAR to enjoy</string>
+    <string name="go_to_settings">Take me to Settings</string>
+    
+    <!-- HOME -->
+    <string name="home_activity">Home</string>
+    <string name="drawer_close">Closed Box</string>
+    <string name="drawer_open">Open Box</string>
+    <string name="explore">Explore</string>
+    
+    <!-- AR VIEW -->
+    <string name="screenshot">Screenshot</string>
+    <string name="range">Range</string>
+    <string name="unhide">Unhide</string>
+    
+    <!-- FAV PLACES -->
+    <string name="more_info">More info ...</string>
+    <string name="go_to_website">Go to Website</string>
+    <string name="fav_places_activity">Favorite places</string>
+    <string name="no_favorite_places">When you first mark a place as favorite, you will see it here.</string>
+    
+    <!-- SAVED EVENTS -->
+	<string name="saved_events_activity">Saved events</string>
+	<string name="no_saved_events">When you first save a event, you will see it here.</string>
+	
+    <!-- NOTIFICATIONS -->
+	<string name="notifications_activity">Notifications</string>
+	<string name="no_notifications">When you first receive a notification, you will see it here.</string>
+	
+    </resources>

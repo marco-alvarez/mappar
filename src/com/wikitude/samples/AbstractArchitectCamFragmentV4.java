@@ -1,6 +1,7 @@
 package com.wikitude.samples;
 
 import java.io.IOException;
+
 import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 import android.location.Location;
@@ -17,9 +18,9 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.wikitude.architect.ArchitectView;
-import com.wikitude.architect.ArchitectView.ArchitectConfig;
 import com.wikitude.architect.ArchitectView.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
+import com.wikitude.architect.StartupConfiguration;
 
 
 	public abstract class AbstractArchitectCamFragmentV4 extends Fragment implements ArchitectViewHolderInterface{
@@ -68,7 +69,7 @@ import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
 			this.architectView = (ArchitectView)this.getView().findViewById( getArchitectViewId() );
 			
 			// pass license key to architectView while creating it
-			final ArchitectConfig config = new ArchitectConfig( this.getWikitudeSDKLicenseKey() );
+			final StartupConfiguration config = new StartupConfiguration( this.getWikitudeSDKLicenseKey(), ArchitectView.getSupportedFeaturesForDevice(getActivity()));
 			
 			// forwards mandatory life-cycle-events, unfortunately there is no onPostCreate() event in fragments so we have to call it that way
 			try {
@@ -87,12 +88,16 @@ import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
 			 *	You may even delete this block in case you don't need remote debugging or don't have an Android 4.4+ device in place.
 			 *	Details: https://developers.google.com/chrome-developer-tools/docs/remote-debugging
 			 */
-			
+			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			    if ( 0 != ( getActivity().getApplicationInfo().flags &= ApplicationInfo.FLAG_DEBUGGABLE ) ) {
+			        WebView.setWebContentsDebuggingEnabled(true);
+			    }
+			}
 			
 			try {
 				
 				// load architectView's content
-				this.architectView.load( this.getARchitectWorldPath() );
+				this.architectView.load( this.getCategoryId() );
 				
 				if (this.getInitialCullingDistanceMeters() != ArchitectViewHolderInterface.CULLING_DISTANCE_DEFAULT_METERS) {
 					// set the culling distance - meaning: the maximum distance to render geo-content
@@ -224,7 +229,35 @@ import com.wikitude.architect.ArchitectView.SensorAccuracyChangeListener;
 		 * @return
 		 */
 		@Override
-		public abstract String getARchitectWorldPath();
+		public abstract String getCategoryId();
+		
+		/**
+		 * path to the architect-file (AR-Experience HTML) to launch
+		 * @return
+		 */
+		@Override
+		public abstract String getCategoryName();
+		
+		/**
+		 * path to the architect-file (AR-Experience HTML) to launch
+		 * @return
+		 */
+		@Override
+		public abstract String getCategoryType();
+		
+		/**
+		 * path to the architect-file (AR-Experience HTML) to launch
+		 * @return
+		 */
+		@Override
+		public abstract String getDestLat();
+		
+		/**
+		 * path to the architect-file (AR-Experience HTML) to launch
+		 * @return
+		 */
+		@Override
+		public abstract String getDestLong();
 		
 		/**
 		 * url listener fired once e.g. 'document.location = "architectsdk://foo?bar=123"' is called in JS

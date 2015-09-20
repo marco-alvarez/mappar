@@ -1,11 +1,15 @@
 package com.wikitude.samples;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.widget.Toast;
+import android.provider.Settings;
 
+import com.heyapp.hey.R;
 import com.wikitude.samples.ArchitectViewHolderInterface.ILocationProvider;
 
 
@@ -92,7 +96,28 @@ public class LocationProvider implements ILocationProvider {
 
 			/** user didn't check a single positioning in the location settings, recommended: handle this event properly in your app, e.g. forward user directly to location-settings, new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS ) */
 			if ( !this.gpsProviderEnabled || !this.networkProviderEnabled ) {
-				Toast.makeText( this.context, "Please enable GPS and Network positioning in your Settings ", Toast.LENGTH_LONG ).show();
+				//Toast.makeText( this.context, "Please enable GPS and Network positioning in your Settings ", Toast.LENGTH_LONG ).show();
+				final Context fcontext = this.context;
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+				builder.setTitle(R.string.location_not_available);
+				builder.setMessage(R.string.please_enable_gps_and_network_positioning_in_your_settings);
+				builder.setPositiveButton(R.string.go_to_settings, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+
+						Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+						fcontext.startActivity(viewIntent);
+					}
+				});
+				builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+
+				AlertDialog alert = builder.create();
+				alert.show();
 			}
 		}
 	}

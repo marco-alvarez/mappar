@@ -2,4 +2,7 @@
 <lint>
     <issue id="HardcodedDebugMode" severity="warning" />
     <issue id="NewApi" severity="ignore" />
+    <issue id="SuspiciousImport">
+        <ignore path="src/com/heyapp/heymain/SlidingTabStrip.java" />
+    </issue>
 </lint>

@@ -4,21 +4,37 @@
     <color name="black">#ff1e1e1e</color>
     <color name="white">#ffffffff</color>
     <color name="trans_white">#50ffffff</color>
-    <color name="red">#ff8b141e</color>
     <color name="blue">#ff33b5e5</color>
     <color name="violet">#ff64015e</color>
     <color name="grey">#ffe5e5e5</color>
+    <color name="text_grey">#9f9f9f</color>
     <color name="bold_grey">#ffd6d6d6</color>
     <color name="green">#ffd8f97e</color>
     <color name="distance_green">#ff5bcc00</color>
     <color name="distance_cyan">#ff60d4d4</color>
-    <color name="light_grey">#ff525255</color>
-    <color name="light_grey1">#ffeef0f1</color>
     <color name="normal_tab1">#ff313133</color>
     <color name="normal_tab2">#ff67696c</color>
     <color name="cyan">#ff008eac</color>
     <color name="yellow">#ffb18f06</color>
-    <color name="orange_hey1">#ed8b00</color>
+
+    <color name="alpha_dark">#80000000</color>
+    <color name="alpha_white">#CCFFFFFF</color>
     
+    <color name="primary">#9C27B0</color>
+  	<color name="primary_dark">#7B1FA2</color>
+  	<color name="primary_light">#E1BEE7</color>
+  	<color name="accent">#00BCD4</color>
+  	<color name="primary_text">#212121</color>
+  	<color name="secondary_text">#727272</color>
+  	<color name="icons">#FFFFFF</color>
+  	<color name="divider">#B6B6B6</color>
+    <color name="divider_alpha">#e7e7e7</color>
+    
+    <color name="tinto">#95001E</color>
+ 
+    <color name="red">#ffFF5252</color>
+    
+    <color name="light_grey">#fff8f9f9</color>
+    <color name="bkg_grey">#ffedf0f0</color>
 
 </resources>
